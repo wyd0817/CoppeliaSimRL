@@ -8,7 +8,7 @@ from stable_baselines3.common.callbacks import CallbackList
 from stable_baselines3.common.callbacks import EvalCallback
 
 import sys
-sys.path.append("../utils")
+sys.path.append("/Users/wangyongdong/CoppeliaSimRL/utils")
 from callbackFunctions import VisdomCallback
 
 # ---------------- create environment
@@ -25,12 +25,12 @@ callback_list = CallbackList([callback_visdom, callback_save_best_model])
 
 
 # ---------------- model learning
-print('Learning the model')
-model = A2C('MlpPolicy', env, verbose=True)
-model.learn(total_timesteps=20000, callback=callback_list) # 'MlpPolicy' = Actor Critic Policy
-print('Learning finished')
+# print('Learning the model')
+# model = A2C('MlpPolicy', env, verbose=True)
+# model.learn(total_timesteps=20000, callback=callback_list) # 'MlpPolicy' = Actor Critic Policy
+# print('Learning finished')
 
-del model
+# del model
 
 
 # ---------------- prediction
