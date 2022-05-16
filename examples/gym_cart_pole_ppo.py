@@ -1,6 +1,6 @@
 import time
 import gym
-from stable_baselines3 import A2C
+from stable_baselines3 import PPO
 
 import os
 from stable_baselines3.common.monitor import Monitor
@@ -15,7 +15,7 @@ from callbackFunctions import VisdomCallback
 env = gym.make('CartPole-v1')
 
 # ---------------- callback functions
-log_dir = "/Users/wangyongdong/CoppeliaSimRL/CartPole/saved_models/tmp/A2C"
+log_dir = "/Users/wangyongdong/CoppeliaSimRL/CartPole/saved_models/tmp/PPO"
 os.makedirs(log_dir, exist_ok=True)
 env = Monitor(env, log_dir)
 
@@ -26,7 +26,7 @@ callback_list = CallbackList([callback_visdom, callback_save_best_model])
 
 # ---------------- model learning
 # print('Learning the model')
-# model = A2C('MlpPolicy', env, verbose=True)
+# model = PPO('MlpPolicy', env, verbose=True)
 # model.learn(total_timesteps=20000, callback=callback_list) # 'MlpPolicy' = Actor Critic Policy
 # print('Learning finished')
 
@@ -35,7 +35,7 @@ callback_list = CallbackList([callback_visdom, callback_save_best_model])
 
 # ---------------- prediction
 print('Prediction')
-model = A2C.load("/Users/wangyongdong/CoppeliaSimRL/CartPole/saved_models/tmp/A2C/best_model", env=env)
+model = PPO.load("/Users/wangyongdong/CoppeliaSimRL/CartPole/saved_models/tmp/PPO/best_model", env=env)
 
 
 observation = env.reset()
