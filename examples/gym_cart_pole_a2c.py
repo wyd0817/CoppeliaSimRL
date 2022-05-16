@@ -15,7 +15,7 @@ from callbackFunctions import VisdomCallback
 env = gym.make('CartPole-v1')
 
 # ---------------- callback functions
-log_dir = "../CartPole/saved_models/tmp"
+log_dir = "/Users/wangyongdong/CoppeliaSimRL/CartPole/saved_models/tmp/A2C"
 os.makedirs(log_dir, exist_ok=True)
 env = Monitor(env, log_dir)
 
@@ -25,17 +25,17 @@ callback_list = CallbackList([callback_visdom, callback_save_best_model])
 
 
 # ---------------- model learning
-# print('Learning the model')
-# model = A2C('MlpPolicy', env, verbose=True)
-# model.learn(total_timesteps=20000, callback=callback_list) # 'MlpPolicy' = Actor Critic Policy
-# print('Learning finished')
+print('Learning the model')
+model = A2C('MlpPolicy', env, verbose=True)
+model.learn(total_timesteps=20000, callback=callback_list) # 'MlpPolicy' = Actor Critic Policy
+print('Learning finished')
 
-# del model
+del model
 
 
 # ---------------- prediction
 print('Prediction')
-model = A2C.load("../CartPole/saved_models/tmp/best_model", env=env)
+model = A2C.load("/Users/wangyongdong/CoppeliaSimRL/CartPole/saved_models/tmp/A2C/best_model", env=env)
 
 
 observation = env.reset()
