@@ -5,7 +5,7 @@ from gym import spaces, logger
 import time
 
 import sys
-sys.path.append('../VREP_RemoteAPIs')
+sys.path.append('/Users/wangyongdong/CoppeliaSimRL/VREP_RemoteAPIs')
 import sim as vrep_sim
 
 from CartPoleSimModel import CartPoleSimModel
@@ -124,7 +124,7 @@ class CartPoleEnv(gym.Env):
         vrep_sim.simxSynchronousTrigger(self.cart_pole_sim_model.client_ID)
         vrep_sim.simxGetPingTime(self.cart_pole_sim_model.client_ID)
 
-        return np.array(self.state), reward, done, {}
+        return np.array(self.state, dtype=np.float32), reward, done, {}
     
     def reset(self):
         # print('Reset the environment after {} counts'.format(self.counts))
@@ -141,7 +141,7 @@ class CartPoleEnv(gym.Env):
         vrep_sim.simxSynchronousTrigger(self.cart_pole_sim_model.client_ID)
         vrep_sim.simxGetPingTime(self.cart_pole_sim_model.client_ID)
 
-        return np.array(self.state)
+        return np.array(self.state, dtype=np.float32)
     
     def render(self):
         return None

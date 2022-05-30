@@ -6,21 +6,21 @@ from stable_baselines3.common.callbacks import CallbackList
 from stable_baselines3.common.callbacks import EvalCallback
 
 import sys
-sys.path.append("../utils")
+sys.path.append("/Users/wangyongdong/CoppeliaSimRL/utils")
 from callbackFunctions import VisdomCallback
 
-sys.path.append("../CartPole")
+sys.path.append("/Users/wangyongdong/CoppeliaSimRL/CartPole")
 from CartPoleEnv import CartPoleEnv
 
 import os
 
 
 # ---------------- Create environment
-env = CartPoleEnv(action_type='discrete') # action_type can be set as discrete or continuous
+env = CartPoleEnv(action_type='continuous') # action_type can be set as discrete or continuous
 check_env(env)
 
 # ---------------- Callback functions
-log_dir = "../CartPole/saved_models/tmp"
+log_dir = "/Users/wangyongdong/CoppeliaSimRL/CartPole/saved_models/tmp"
 os.makedirs(log_dir, exist_ok=True)
 
 env = Monitor(env, log_dir)
@@ -32,28 +32,28 @@ callback_list = CallbackList([callback_visdom, callback_save_best_model])
 
 # ---------------- Model
 # Option 1: create a new model
-# print("create a new model")
-# model = A2C(policy='MlpPolicy', env=env, learning_rate=7e-4, verbose=True)
+print("create a new model")
+model = A2C(policy='MlpPolicy', env=env, learning_rate=7e-4, verbose=True)
 
 # Option 2: load the model from files (note that the loaded model can be learned again)
 # print("load the model from files")
-# model = A2C.load("../CartPole/saved_models/tmp/best_model", env=env)
+# model = A2C.load("/Users/wangyongdong/CoppeliaSimRL/CartPole/saved_models/tmp/best_model", env=env)
 # model.learning_rate = 1e-4
 
 # Option 3: load the pre-trained model from files
-print("load the pre-trained model from files")
-if env.action_type == 'discrete':
-    model = A2C.load("../CartPole/saved_models/best_model_discrete", env=env)
-else:
-    model = A2C.load("../CartPole/saved_models/best_model_continuous", env=env)
+# print("load the pre-trained model from files")
+# if env.action_type == 'discrete':
+#     model = A2C.load("/Users/wangyongdong/CoppeliaSimRL/CartPole/saved_models/best_model_discrete", env=env)
+# else:
+#     model = A2C.load("/Users/wangyongdong/CoppeliaSimRL/CartPole/saved_models/best_model_continuous", env=env)
 
 
 # ---------------- Learning
-# print('Learning the model')
-# model.learn(total_timesteps=400000, callback=callback_list) # 'MlpPolicy' = Actor Critic Policy
-# print('Finished')
-# del model # delete the model and load the best model to predict
-# model = A2C.load("../CartPole/saved_models/tmp/best_model", env=env)
+print('Learning the model')
+model.learn(total_timesteps=400000, callback=callback_list) # 'MlpPolicy' = Actor Critic Policy
+print('Finished')
+del model # delete the model and load the best model to predict
+model = A2C.load("/Users/wangyongdong/CoppeliaSimRL/CartPole/saved_models/tmp/best_model", env=env)
 
 
 # ---------------- Prediction

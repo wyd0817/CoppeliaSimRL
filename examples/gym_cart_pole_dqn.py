@@ -25,12 +25,12 @@ callback_list = CallbackList([callback_visdom, callback_save_best_model])
 
 
 # ---------------- model learning
-# print('Learning the model')
-# model = DQN('MlpPolicy', env, verbose=True)
-# model.learn(total_timesteps=20000, callback=callback_list) # 'MlpPolicy' = Actor Critic Policy
-# print('Learning finished')
+print('Learning the model')
+model = DQN('MlpPolicy', env, verbose=True)
+model.learn(total_timesteps=20000, callback=callback_list) # 'MlpPolicy' = Actor Critic Policy
+print('Learning finished')
 
-# del model
+del model
 
 
 # ---------------- prediction
