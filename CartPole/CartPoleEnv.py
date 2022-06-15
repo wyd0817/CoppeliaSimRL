@@ -3,9 +3,13 @@ import gym
 from gym.utils import seeding
 from gym import spaces, logger
 import time
-
+from os.path import dirname, join, abspath
+from os import path, pardir
 import sys
-sys.path.append('/Users/wangyongdong/CoppeliaSimRL/VREP_RemoteAPIs')
+
+dir = join(abspath(join(dirname(__file__),pardir)),'VREP_RemoteAPIs')
+
+sys.path.append(dir)
 import sim as vrep_sim
 
 from CartPoleSimModel import CartPoleSimModel

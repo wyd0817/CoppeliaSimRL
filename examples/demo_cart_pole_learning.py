@@ -1,26 +1,26 @@
 from stable_baselines3 import A2C
 from stable_baselines3.common.env_checker import check_env
-
 from stable_baselines3.common.monitor import Monitor
 from stable_baselines3.common.callbacks import CallbackList
 from stable_baselines3.common.callbacks import EvalCallback
-
+from os.path import dirname, join, abspath
+from os import path, pardir
 import sys
-sys.path.append("/Users/wangyongdong/CoppeliaSimRL/utils")
+
+utils_dir = join(abspath(join(dirname(__file__),pardir)),'utils')
+
+sys.path.append(utils_dir)
 from callbackFunctions import VisdomCallback
-
-sys.path.append("/Users/wangyongdong/CoppeliaSimRL/CartPole")
+CartPole_dir = join(abspath(join(dirname(__file__),pardir)),'CartPole')
+sys.path.append(CartPole_dir)
 from CartPoleEnv import CartPoleEnv
-
-import os
-
 
 # ---------------- Create environment
 env = CartPoleEnv(action_type='continuous') # action_type can be set as discrete or continuous
 check_env(env)
 
 # ---------------- Callback functions
-log_dir = "/Users/wangyongdong/CoppeliaSimRL/CartPole/saved_models/tmp"
+log_dir = join(abspath(join(dirname(__file__),pardir)),'CartPole/saved_models/tmp')
 os.makedirs(log_dir, exist_ok=True)
 
 env = Monitor(env, log_dir)
@@ -37,15 +37,18 @@ model = A2C(policy='MlpPolicy', env=env, learning_rate=7e-4, verbose=True)
 
 # Option 2: load the model from files (note that the loaded model can be learned again)
 # print("load the model from files")
-# model = A2C.load("/Users/wangyongdong/CoppeliaSimRL/CartPole/saved_models/tmp/best_model", env=env)
+# dir = join(abspath(join(dirname(__file__),pardir)),'CartPole/saved_models/tmp/best_model')
+# model = A2C.load(dir, env=env)
 # model.learning_rate = 1e-4
 
 # Option 3: load the pre-trained model from files
 # print("load the pre-trained model from files")
 # if env.action_type == 'discrete':
-#     model = A2C.load("/Users/wangyongdong/CoppeliaSimRL/CartPole/saved_models/best_model_discrete", env=env)
+#     dir = join(abspath(join(dirname(__file__),pardir)),'CartPole/saved_models/tmp/best_model_discrete')
+#     model = A2C.load(dir, env=env)
 # else:
-#     model = A2C.load("/Users/wangyongdong/CoppeliaSimRL/CartPole/saved_models/best_model_continuous", env=env)
+#     dir = join(abspath(join(dirname(__file__),pardir)),'CartPole/saved_models/tmp/best_model_continuous')
+#     model = A2C.load(dir, env=env)
 
 
 # ---------------- Learning
@@ -53,7 +56,8 @@ print('Learning the model')
 model.learn(total_timesteps=400000, callback=callback_list) # 'MlpPolicy' = Actor Critic Policy
 print('Finished')
 del model # delete the model and load the best model to predict
-model = A2C.load("/Users/wangyongdong/CoppeliaSimRL/CartPole/saved_models/tmp/best_model", env=env)
+dir = join(abspath(join(dirname(__file__),pardir)),'CartPole/saved_models/tmp/best_model')
+model = A2C.load(dir, env=env)
 
 
 # ---------------- Prediction
