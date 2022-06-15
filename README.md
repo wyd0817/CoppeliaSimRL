@@ -6,13 +6,14 @@ Some tutorials can be found at:
 - Zhihu: https://zhuanlan.zhihu.com/p/398874515
 - WeChat: https://mp.weixin.qq.com/s/id7fw0eGBtLqEqr-zaKKPQ
 
-All the demos have been tested on Ubuntu 20.04, with Anaconda python environment.
-
+All the demos have been tested on macOS Monterey 12.4, with Anaconda python environment.
 
 ---
+
 ## Environments setup
 
-You have to install the following softwares and environments for this project, the recommend operating system is Ubuntu.
+You have to install the following softwares and environments for this project, the recommend operating system is macOS.
+
 - CoppeliaSim 4.2 (https://www.coppeliarobotics.com/)
 - Python 3.6+ (Anaconda is recommended)
 - Gym (https://github.com/openai/gym)
@@ -20,8 +21,8 @@ You have to install the following softwares and environments for this project, t
 - Pytorch (https://pytorch.org/)
 - Visdom (pip install visdom)
 
-
 ---
+
 ## Demo 1: Cart-pole control with the A2C (modified SAC) algorithm
 
 - Step 1: run CoppeliaSim, import cart_pole.ttt
@@ -31,4 +32,3 @@ You have to install the following softwares and environments for this project, t
 Then we have:
 
 ![](pic/cart_pole_demo_1.gif)
-
