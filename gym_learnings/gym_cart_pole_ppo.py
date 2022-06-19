@@ -1,6 +1,6 @@
 import time
 import gym
-from stable_baselines3 import A2C
+from stable_baselines3 import PPO
 
 import os
 from stable_baselines3.common.monitor import Monitor
@@ -22,26 +22,26 @@ tensorboard_log = join(abspath(join(dirname(__file__),pardir)),'logs_train')
 env = gym.make('CartPole-v1')
 
 # ---------------- callback functions
-log_dir = join(abspath(join(dirname(__file__),pardir)),'CartPole/saved_models/tmp/A2C')
+log_dir = join(abspath(join(dirname(__file__),pardir)),'CartPole/saved_models/tmp/PPO')
 os.makedirs(log_dir, exist_ok=True)
 env = Monitor(env, log_dir)
 
 callback_save_best_model = EvalCallback(env, best_model_save_path=log_dir, log_path=log_dir, eval_freq=500, deterministic=True, render=False)
 callback_list = CallbackList([callback_save_best_model])
 
-TRAINING_MODE = False
+TRAINING_MODE = True
 
 # ---------------- model learning
 if TRAINING_MODE == True:
     print('Learning the model')
     start_time =datetime.now()
-    model = A2C(policy='MlpPolicy',
+    model = PPO(policy='MlpPolicy',
             env=env, 
             learning_rate=7e-4,  
             policy_kwargs=dict(activation_fn=torch.nn.ReLU, net_arch=[64, 64, 64, 64]),
             verbose=2, 
             tensorboard_log = tensorboard_log)
-    model.learn(total_timesteps=20000, callback=callback_list) 
+    model.learn(total_timesteps=1000000, callback=callback_list) 
     end_time =datetime.now()
     print('The training time: ',(end_time - start_time))
     print('Learning finished')
@@ -50,8 +50,8 @@ if TRAINING_MODE == True:
 else:
     # ---------------- prediction
     print('Prediction')
-    model_dir = join(abspath(join(dirname(__file__),pardir)),'CartPole/saved_models/tmp/A2C/best_model')
-    model = A2C.load(model_dir, env=env)
+    model_dir = join(abspath(join(dirname(__file__),pardir)),'CartPole/saved_models/tmp/PPO/best_model')
+    model = PPO.load(model_dir, env=env)
 
     observation = env.reset()
     for i in range(1000):
