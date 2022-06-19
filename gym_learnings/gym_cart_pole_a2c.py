@@ -29,7 +29,7 @@ env = Monitor(env, log_dir)
 callback_save_best_model = EvalCallback(env, best_model_save_path=log_dir, log_path=log_dir, eval_freq=500, deterministic=True, render=False)
 callback_list = CallbackList([callback_save_best_model])
 
-TRAINING_MODE = True
+TRAINING_MODE = False
 
 # ---------------- model learning
 if TRAINING_MODE == True:
@@ -37,11 +37,11 @@ if TRAINING_MODE == True:
     start_time =datetime.now()
     model = A2C(policy='MlpPolicy',
             env=env, 
-            learning_rate=7e-4,  
-            policy_kwargs=dict(activation_fn=torch.nn.ReLU, net_arch=[64, 64, 64, 64]),
+            learning_rate=7e-4,
+            policy_kwargs=dict(activation_fn=torch.nn.ReLU, net_arch=[256, 256]),
             verbose=2, 
             tensorboard_log = tensorboard_log)
-    model.learn(total_timesteps=20000, callback=callback_list) 
+    model.learn(total_timesteps=1E+5, callback=callback_list) 
     end_time =datetime.now()
     print('The training time: ',(end_time - start_time))
     print('Learning finished')
