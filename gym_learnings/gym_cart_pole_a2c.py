@@ -52,6 +52,10 @@ else:
     print('Prediction')
     model_dir = join(abspath(join(dirname(__file__),pardir)),'CartPole/saved_models/tmp/A2C/best_model')
     model = A2C.load(model_dir, env=env)
+    print(env.observation_space)
+    print(env.observation_space.shape)
+    print(env.observation_space.shape[0])
+    print(env.action_space)
 
     observation = env.reset()
     for i in range(1000):
