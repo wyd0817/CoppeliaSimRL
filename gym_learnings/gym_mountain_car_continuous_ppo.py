@@ -41,7 +41,7 @@ if TRAINING_MODE == True:
             policy_kwargs=dict(activation_fn=torch.nn.ReLU, net_arch=[256, 256]),
             verbose=2, 
             tensorboard_log = tensorboard_log)
-    model.learn(total_timesteps=1E+5, callback=callback_list) 
+    model.learn(total_timesteps=1E+6, callback=callback_list) 
     end_time =datetime.now()
     print('The training time: ',(end_time - start_time))
     print('Learning finished')
