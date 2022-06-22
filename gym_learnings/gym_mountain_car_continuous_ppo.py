@@ -37,7 +37,7 @@ if TRAINING_MODE == True:
     start_time =datetime.now()
     model = PPO(policy='MlpPolicy',
             env=env, 
-            learning_rate=7e-4,
+            learning_rate=7e-2,
             policy_kwargs=dict(activation_fn=torch.nn.ReLU, net_arch=[256, 256]),
             verbose=2, 
             tensorboard_log = tensorboard_log)
