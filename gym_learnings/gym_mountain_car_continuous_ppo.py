@@ -38,10 +38,10 @@ if TRAINING_MODE == True:
     model = PPO(policy='MlpPolicy',
             env=env, 
             learning_rate=7e-2,
-            policy_kwargs=dict(activation_fn=torch.nn.ReLU, net_arch=[256, 256]),
+            policy_kwargs=dict(activation_fn=torch.nn.ReLU, net_arch=[64, 64]),
             verbose=2, 
             tensorboard_log = tensorboard_log)
-    model.learn(total_timesteps=1E+7, callback=callback_list) 
+    model.learn(total_timesteps=1E+4, callback=callback_list) 
     end_time =datetime.now()
     print('The training time: ',(end_time - start_time))
     print('Learning finished')
