@@ -16,13 +16,13 @@ import torch
 utils_dir = join(abspath(join(dirname(__file__),pardir)),'utils')
 sys.path.append(utils_dir)
 
-tensorboard_log = join(abspath(join(dirname(__file__),pardir)),'logs_train')
+tensorboard_log = join(abspath(join(dirname(__file__),pardir)),'logs_train/CartPole')
 
 # ---------------- create environment
 env = gym.make('CartPole-v1')
 
 # ---------------- callback functions
-log_dir = join(abspath(join(dirname(__file__),pardir)),'CartPole/saved_models/tmp/DQN')
+log_dir = join(abspath(join(dirname(__file__),pardir)),'models/CartPole/DQN')
 os.makedirs(log_dir, exist_ok=True)
 env = Monitor(env, log_dir)
 
@@ -50,7 +50,7 @@ if TRAINING_MODE == True:
 else:
     # ---------------- prediction
     print('Prediction')
-    model_dir = join(abspath(join(dirname(__file__),pardir)),'CartPole/saved_models/tmp/DQN/best_model')
+    model_dir = join(abspath(join(dirname(__file__),pardir)),'models/CartPole/DQN/best_model')
     model = DQN.load(model_dir, env=env)
 
     observation = env.reset()

@@ -16,13 +16,13 @@ import torch
 utils_dir = join(abspath(join(dirname(__file__),pardir)),'utils')
 sys.path.append(utils_dir)
 
-tensorboard_log = join(abspath(join(dirname(__file__),pardir)),'logs_train')
+tensorboard_log = join(abspath(join(dirname(__file__),pardir)),'logs_train/CartPole')
 
 # ---------------- create environment
 env = gym.make('CartPole-v1')
 
 # ---------------- callback functions
-log_dir = join(abspath(join(dirname(__file__),pardir)),'CartPole/saved_models/tmp/PPO')
+log_dir = join(abspath(join(dirname(__file__),pardir)),'models/CartPole/PPO')
 os.makedirs(log_dir, exist_ok=True)
 env = Monitor(env, log_dir)
 
@@ -50,7 +50,7 @@ if TRAINING_MODE == True:
 else:
     # ---------------- prediction
     print('Prediction')
-    model_dir = join(abspath(join(dirname(__file__),pardir)),'CartPole/saved_models/tmp/PPO/best_model')
+    model_dir = join(abspath(join(dirname(__file__),pardir)),'models/CartPole/PPO/best_model')
     model = PPO.load(model_dir, env=env)
 
     observation = env.reset()

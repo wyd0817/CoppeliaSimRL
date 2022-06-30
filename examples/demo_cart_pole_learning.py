@@ -20,7 +20,7 @@ env = CartPoleEnv(action_type='continuous') # action_type can be set as discrete
 check_env(env)
 
 # ---------------- Callback functions
-log_dir = join(abspath(join(dirname(__file__),pardir)),'CartPole/saved_models/tmp')
+log_dir = join(abspath(join(dirname(__file__),pardir)),'models/CartPole')
 os.makedirs(log_dir, exist_ok=True)
 
 env = Monitor(env, log_dir)
@@ -37,17 +37,17 @@ model = A2C(policy='MlpPolicy', env=env, learning_rate=7e-4, verbose=True)
 
 # Option 2: load the model from files (note that the loaded model can be learned again)
 # print("load the model from files")
-# dir = join(abspath(join(dirname(__file__),pardir)),'CartPole/saved_models/tmp/best_model')
+# dir = join(abspath(join(dirname(__file__),pardir)),'models/CartPole/best_model')
 # model = A2C.load(dir, env=env)
 # model.learning_rate = 1e-4
 
 # Option 3: load the pre-trained model from files
 # print("load the pre-trained model from files")
 # if env.action_type == 'discrete':
-#     dir = join(abspath(join(dirname(__file__),pardir)),'CartPole/saved_models/tmp/best_model_discrete')
+#     dir = join(abspath(join(dirname(__file__),pardir)),'models/CartPole/best_model_discrete')
 #     model = A2C.load(dir, env=env)
 # else:
-#     dir = join(abspath(join(dirname(__file__),pardir)),'CartPole/saved_models/tmp/best_model_continuous')
+#     dir = join(abspath(join(dirname(__file__),pardir)),'models/CartPole/best_model_continuous')
 #     model = A2C.load(dir, env=env)
 
 
@@ -56,7 +56,7 @@ print('Learning the model')
 model.learn(total_timesteps=400000, callback=callback_list) # 'MlpPolicy' = Actor Critic Policy
 print('Finished')
 del model # delete the model and load the best model to predict
-dir = join(abspath(join(dirname(__file__),pardir)),'CartPole/saved_models/tmp/best_model')
+dir = join(abspath(join(dirname(__file__),pardir)),'models/CartPole/best_model')
 model = A2C.load(dir, env=env)
 
 

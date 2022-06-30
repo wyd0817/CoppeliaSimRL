@@ -16,13 +16,13 @@ import torch
 utils_dir = join(abspath(join(dirname(__file__),pardir)),'utils')
 sys.path.append(utils_dir)
 
-tensorboard_log = join(abspath(join(dirname(__file__),pardir)),'logs_train_mountain_car_continuous')
+tensorboard_log = join(abspath(join(dirname(__file__),pardir)),'logs_train/MountainCarContinuous')
 
 # ---------------- create environment
 env = gym.make('MountainCarContinuous-v0')
 
 # ---------------- callback functions
-log_dir = join(abspath(join(dirname(__file__),pardir)),'MountainCarContinuous/saved_models/tmp/A2C')
+log_dir = join(abspath(join(dirname(__file__),pardir)),'models/MountainCarContinuous/A2C')
 os.makedirs(log_dir, exist_ok=True)
 env = Monitor(env, log_dir)
 
@@ -50,7 +50,7 @@ if TRAINING_MODE == True:
 else:
     # ---------------- prediction
     print('Prediction')
-    model_dir = join(abspath(join(dirname(__file__),pardir)),'MountainCarContinuous/saved_models/tmp/A2C/best_model')
+    model_dir = join(abspath(join(dirname(__file__),pardir)),'models/MountainCarContinuous/A2C/best_model')
     model = A2C.load(model_dir, env=env)
     print(env.observation_space)
     print(env.observation_space.shape)
